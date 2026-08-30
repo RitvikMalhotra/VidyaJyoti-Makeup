@@ -1,0 +1,448 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   S.L.N. Digital Studio — design system
+
+   A dark, warm room. The ground sits at #17130f — genuinely low light, but
+   never neutral black: red leads green leads blue at every level, so the page
+   reads as a room with the lamps down rather than as a void. The photographs
+   are the only truly bright things on it. Deeper rooms are cut into that
+   ground for the full-bleed frames. One accent — a vermillion that is both the
+   safelight a darkroom is lit by and the auspicious red of an Indian wedding.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-surface: #17130f;
+  --color-surface-2: #1e1914;
+  --color-surface-3: #262019;
+  --color-deep: #0c0a08;
+
+  /* Foreground */
+  --color-fg: #efe8dc;
+  --color-fg-2: #c2b7a6;
+  --color-fg-3: #a29889;
+  --color-fg-4: #8a8070;
+
+  /* Accent */
+  --color-accent: #d4592e;
+  --color-accent-2: #ea8560;
+  --color-accent-3: #a3401d;
+
+  /* Reserved image frames stay light, like prints hung on a dark wall. */
+  --color-plate: #a89a84;
+  --color-plate-ink: #241e17;
+
+  --color-rule: rgba(239, 232, 220, 0.12);
+  --color-rule-2: rgba(239, 232, 220, 0.24);
+
+  --font-display: 'Fraunces', 'Hoefler Text', Georgia, serif;
+  --font-sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --nav-h: 72px;
+    --bar-h: 0px;
+  }
+
+  @media (max-width: 1023px) {
+    :root {
+      --nav-h: 62px;
+      --bar-h: 64px;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 12px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-fg-2);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-variation-settings: 'wdth' 96, 'opsz' 14;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  html,
+  body {
+    max-width: 100vw;
+  }
+
+  /* Fraunces carries the character: soft terminals, wonky detailing on. */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    color: var(--color-fg);
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  img { display: block; max-width: 100%; }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-2);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* --- Surfaces ---------------------------------------------------------- */
+  /* Deeper rooms cut into the ground, for full-bleed frames and the footer. */
+  .room {
+    background-color: var(--color-deep);
+  }
+
+  /* --- Type scale --------------------------------------------------------- */
+  .display-xl {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.032em;
+    font-size: clamp(2.9rem, 8.2vw, 6.6rem);
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+    font-size: clamp(2.3rem, 5.4vw, 4.2rem);
+  }
+
+  .display-md {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  }
+
+  .display-sm {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-size: clamp(1.4rem, 2.1vw, 1.85rem);
+  }
+
+  /* Body copy is Bricolage Grotesque — a grotesque with actual quirk in it,
+     widened slightly and optically sized so it does not read as a default UI
+     font. */
+  .body-lg {
+    font-size: clamp(1.02rem, 1.05vw, 1.16rem);
+    line-height: 1.6;
+    font-weight: 400;
+    font-variation-settings: 'wdth' 98, 'opsz' 18;
+    color: var(--color-fg-2);
+  }
+
+  .body-base {
+    font-size: 0.95rem;
+    line-height: 1.66;
+    font-weight: 400;
+    font-variation-settings: 'wdth' 96, 'opsz' 14;
+    color: var(--color-fg-3);
+  }
+
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-variation-settings: 'wdth' 88, 'opsz' 12;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-accent-2);
+  }
+
+  .meta {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    font-variation-settings: 'wdth' 92, 'opsz' 12;
+    letter-spacing: 0.015em;
+    color: var(--color-fg-3);
+  }
+
+  /* --- Rules -------------------------------------------------------------- */
+  .rule { height: 1px; background: var(--color-rule); }
+
+  .chapter-num {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 32, 'WONK' 1;
+    line-height: 1;
+    color: rgba(239, 232, 220, 0.3);
+  }
+}
+
+@layer components {
+  /* --- Buttons ------------------------------------------------------------
+     A colour panel wipes up from the bottom edge on hover. Labels are
+     sentence case. */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-variation-settings: 'wdth' 94, 'opsz' 14;
+    letter-spacing: 0.004em;
+    white-space: nowrap;
+    padding: 0.95rem 1.6rem;
+    border: 1px solid transparent;
+    transition:
+      color 0.4s var(--ease-out-soft),
+      border-color 0.4s var(--ease-out-soft);
+  }
+
+  .btn > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    transform: translate3d(0, 101%, 0);
+    transition: transform 0.55s var(--ease-out-soft);
+  }
+
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .btn:active { transform: translateY(1px); }
+
+  /* Bone panel — the loudest thing on the page after the accent. */
+  .btn-solid {
+    background: var(--color-fg);
+    color: var(--color-deep);
+    border-color: var(--color-fg);
+  }
+  .btn-solid::before { background: var(--color-accent); }
+  .btn-solid:hover { color: var(--color-fg); border-color: var(--color-accent); }
+
+  .btn-accent {
+    background: var(--color-accent);
+    color: #fff6ef;
+    border-color: var(--color-accent);
+  }
+  .btn-accent::before { background: var(--color-fg); }
+  .btn-accent:hover { color: var(--color-deep); border-color: var(--color-fg); }
+
+  .btn-outline,
+  .btn-outline-light {
+    background: transparent;
+    color: var(--color-fg);
+    border-color: var(--color-rule-2);
+  }
+  .btn-outline::before,
+  .btn-outline-light::before { background: var(--color-fg); }
+  .btn-outline:hover,
+  .btn-outline-light:hover { color: var(--color-deep); border-color: var(--color-fg); }
+
+  /* --- Quiet link with a rule that redraws ------------------------------- */
+  .link-draw { position: relative; }
+
+  .link-draw::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-out-soft);
+  }
+
+  .link-draw:hover::after,
+  .link-draw[data-active='true']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@layer components {
+  /* --- Scroll reveal ------------------------------------------------------ */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 26px), 0);
+    transition:
+      opacity 0.85s var(--ease-out-soft) var(--reveal-delay, 0ms),
+      transform 0.95s var(--ease-out-soft) var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Photographs open like a frame rather than fading in. */
+  .reveal-curtain {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 0.5s var(--ease-out-soft) var(--reveal-delay, 0ms),
+      clip-path 1.15s var(--ease-out-soft) var(--reveal-delay, 0ms);
+  }
+
+  .reveal-curtain.is-in {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* --- Word-by-word headline reveal -------------------------------------- */
+  .split-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .split-word > span {
+    display: inline-block;
+    transform: translate3d(0, 110%, 0) rotate(2.4deg);
+    transform-origin: left top;
+    opacity: 0;
+    transition:
+      transform 0.95s var(--ease-out-soft) var(--word-delay, 0ms),
+      opacity 0.6s linear var(--word-delay, 0ms);
+  }
+
+  .is-in .split-word > span {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  /* --- Hand-drawn emphasis mark ------------------------------------------ */
+  .mark-stroke path {
+    stroke-dasharray: var(--len, 300);
+    stroke-dashoffset: var(--len, 300);
+    transition: stroke-dashoffset 1.1s var(--ease-out-soft) var(--mark-delay, 500ms);
+  }
+
+  .is-in .mark-stroke path { stroke-dashoffset: 0; }
+
+  /* --- Parallax -----------------------------------------------------------
+     The media layer is oversized so it has room to travel inside its frame.
+     `will-change` is added and removed by the scroll engine as the frame
+     enters and leaves the viewport, rather than being left on permanently —
+     a page-worth of always-promoted layers is what makes parallax stutter. */
+  .parallax-media {
+    position: absolute;
+    inset: -9% 0;
+    height: 118%;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .parallax-media[data-live='1'] {
+    will-change: transform;
+  }
+
+  /* Frames own their painting so a moving child cannot dirty the page. */
+  .frame {
+    contain: paint;
+  }
+
+  /* --- Ticker ------------------------------------------------------------- */
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  /* --- Grain --------------------------------------------------------------
+     Plain low-alpha overlays. Deliberately no mix-blend-mode: blended layers
+     force the compositor to re-blend large areas on every scrolled frame. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .plate-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  }
+
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0);    opacity: 0.25; }
+  50%      { transform: translateY(8px);  opacity: 1; }
+}
+
+@keyframes aperture {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes intro-rise {
+  from { transform: translate3d(0, 105%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes intro-rule {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
