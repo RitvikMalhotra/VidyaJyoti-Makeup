@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vite/
+.DS_Store
+npm-debug.log*
+
+# Higgsfield renders are large binaries. Keep the manifest in git, not the media.
+public/media/*.mp4
+public/media/*.webm
+
+# Source material. The photographs are extracted from this into public/photos;
+# the 60MB original does not belong in the repository.
+*.pdf
+.work/
